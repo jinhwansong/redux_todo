@@ -9,6 +9,7 @@ function Detail() {
     });
     const {id} = useParams()
     const item = todos.find((item)=> item.id === parseInt(id))
+
   return (
     <Bgcontent>
       <TOPdetail>

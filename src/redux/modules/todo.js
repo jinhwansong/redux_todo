@@ -6,7 +6,7 @@ const CHEAK_TODO = 'CHEAK_TODO'
 const initialState ={
     todo : 
     [
-        {id:1,title:'가나다라',text:'가나다라', done:false },
+        {id:0,title:'가나다라',text:'가나다라', done:false },
     ],
 }
 
@@ -42,7 +42,7 @@ const todo = (state = initialState, action)=>{
             return{
                 todo : state.todo.filter((todo) => todo.id !== action.payload)
             }
-         case CHEAK_TODO:
+        case CHEAK_TODO:
             return{
                 todo : state.todo.map((todo) => todo.id === action.payload ? {...todo,done:!todo.done} : todo)
             }

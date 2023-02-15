@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components";
 import { add_TODO } from '../redux/modules/todo';
 function Input() {
+  //포커싱을 해봅시다....
+  const idRef = useRef('')
+  useEffect(()=>{
+    idRef.current.focus()
+  })
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
@@ -19,20 +24,22 @@ function Input() {
 
   const dispatch = useDispatch();
   const addBtn = () => {
-    if (title.trim() === "" || text.trim() === "") {
+    if (title.trim() === "" ) {
+      alert("제목을 작성해주세요");
+      return
+    }else if(text.trim() === ""){
       alert("내용을 작성해주세요");
       return;
     }
     dispatch(
       add_TODO({
-        id: todo.length + 1,
+        id: (todo.at(-1)?.id ?? 0) + 1,
         title: title,
         text: text,
         done: false,
       })
     );
   };
-
   return (
     <InputWarp>
       <Inputbox
@@ -40,6 +47,7 @@ function Input() {
         placeholder="제목을 적어주세요"
         value={title}
         onChange={titleHandler}
+        ref={idRef}
       />
       <Inputbox
         type="text"
